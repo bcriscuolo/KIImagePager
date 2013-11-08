@@ -86,6 +86,10 @@
 
 - (void) initalizeImageCounter
 {
+    if (_indicatorBackground)
+    {
+        [_indicatorBackground removeFromSuperview];
+    }
     _indicatorBackground = [[UIView alloc] initWithFrame:CGRectMake(_scrollView.frame.size.width-(kOverlayWidth-4),
                                                                     _scrollView.frame.size.height-kOverlayHeight,
                                                                     kOverlayWidth,
@@ -112,15 +116,22 @@
 
 - (void) reloadData
 {
-    for (UIView *view in _scrollView.subviews)
-        [view removeFromSuperview];
+    if (_scrollView)
+    {
+        for (UIView *view in _scrollView.subviews)
+            [view removeFromSuperview];
     
-    [self loadData];
+        [self loadData];
+    }
 }
 
 #pragma mark - ScrollView Initialization
 - (void) initializeScrollView
 {
+    if (_scrollView)
+    {
+        [_scrollView removeFromSuperview];
+    }
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     _scrollView.delegate = self;
     _scrollView.pagingEnabled = YES;
@@ -174,6 +185,8 @@
             [imageView addGestureRecognizer:singleTapGestureRecognizer];
             [imageView setUserInteractionEnabled:YES];
             
+            imageFrame = CGRectMake(_scrollView.frame.size.width * i, 0, _scrollView.frame.size.width, _scrollView.frame.size.height);
+            imageView.frame = imageFrame;
             [_scrollView addSubview:imageView];
         }
         
@@ -215,6 +228,10 @@
 #pragma mark - PageControl Initialization
 - (void) initializePageControl
 {
+    if (_pageControl)
+    {
+        [_pageControl removeFromSuperview];
+    }
     CGRect pageControlFrame = CGRectMake(0, 0, _scrollView.frame.size.width, kPageControlHeight);
     _pageControl = [[UIPageControl alloc] initWithFrame:pageControlFrame];
     _pageControl.center = CGPointMake(_scrollView.frame.size.width/2, _scrollView.frame.size.height - 12);
