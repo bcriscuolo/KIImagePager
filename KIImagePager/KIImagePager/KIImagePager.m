@@ -184,7 +184,8 @@
             [singleTapGestureRecognizer setNumberOfTapsRequired:1];
             [imageView addGestureRecognizer:singleTapGestureRecognizer];
             [imageView setUserInteractionEnabled:YES];
-            
+            [imageView setClipsToBounds:YES];
+
             imageFrame = CGRectMake(_scrollView.frame.size.width * i, 0, _scrollView.frame.size.width, _scrollView.frame.size.height);
             imageView.frame = imageFrame;
             [_scrollView addSubview:imageView];
